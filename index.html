@@ -1,178 +1,330 @@
 <!DOCTYPE HTML>
-<html lang="pt-BR">
+<html>
 <head>
-    <title>RPGAVR</title>
-    <meta charset="utf-8" />
-    <!-- Viewport corrigido para garantir o enquadramento perfeito em dispositivos móveis -->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
-    <meta name="keywords" content="rpgavr, rpg ação v reação, wilson costa">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-    <link rel="stylesheet" href="assets/css/main.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
-    
-    <link rel="shortcut icon" href="images/rpgavr.ico">
-    
-    <style>
-        /* Regras adicionais de contenção responsiva */
-        body {
-            overflow-x: hidden;
-        }
-        .container {
-            padding-left: 15px;
-            padding-right: 15px;
-        }
-        .video-container {
-            position: relative;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
-            height: 0;
-            overflow: hidden;
-            max-width: 100%;
-        }
-        .video-container iframe {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-        }
-        img {
-            max-width: 100%;
-            height: auto;
-        }
-    </style>
+<title> RPGAVR </title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="keywords" content="rpgavr, rpg ação v reação, wilson costa">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mlykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/I8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="images/rpgavr.ico" >
+
+<style>
+  /* Ajustes Flexbox para resolver margens no Desktop e Mobile */
+  #main section {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    padding: 3em 2em;
+    box-sizing: border-box;
+  }
+
+  .content-wrapper {
+    width: 100%;
+    max-width: 900px; /* Garante margens laterais perfeitas no PC */
+    margin: 0 auto;
+  }
+
+  .table-responsive {
+    width: 100%;
+    margin-top: 1em;
+  }
+</style>
 </head>
 <body class="is-preload">
 
-    <!-- Header -->
-    <section id="header">
-        <header>
-            <span class="image avatar"><img src="images/avatar.jpg" alt="Avatar" /></span>
-            <h1 id="logo">
-                <a href="https://linktr.ee/RPGAVR" target="_blank">
-                    <button type="button" class="btn btn-light"><strong style="color:black;">Saiba Mais!</strong></button>
-                </a>
-                <a href="https://rpgavr-com.translate.goog/?_x_tr_sl=pt&_x_tr_tl=en&_x_tr_hl=pt-BR&_x_tr_pto=wapp">
-                    <img src="images/eua.png" alt="English Version" />
-                </a>
-            </h1>
-        </header>
-        <nav id="nav">
-            <ul>
-                <li><a href="#projeto" class="active">PROJETO</a></li>
-                <li><a href="#regrasbásicas">REGRAS BÁSICAS</a></li>
-                <li><a href="#raças">RAÇAS</a></li>
-                <li><a href="#classes">CLASSES</a></li>
-                <li><a href="#bestiário">BESTIÁRIO</a></li>
-                <li><a href="#itens">ITENS</a></li>
-                <li><a href="#cenários">CENÁRIOS</a></li>
-                <li><a href="#rolagem">FERRAMENTAS</a></li>
-            </ul>
-        </nav>
-        <footer>
-            <ul class="icons"></ul>
-        </footer>
+<!-- Header -->
+<section id="header">
+  <header>
+    <span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+    <h1 id="logo">
+      <a href="https://linktr.ee/RPGAVR" target="_blank"><button type="button" class="btn btn-light"><strong style="color:black;">Saiba Mais!</strong></button></a>
+      <a href="javascript:void(0);" onclick="translatePage('en');">
+        <img src="images/eua.png" alt="English Translation" />
+      </a>
+      <div id="google_translate_element" style="display:none;"></div>
+    </h1>
+  </header>
+  
+  <nav id="nav">
+    <ul>
+      <li><a href="#projeto" class="active">PROJETO</a></li>
+      <li><a href="#sistema">O SISTEMA</a></li>
+      <li><a href="#acoes-reacoes">AÇÕES E REAÇÕES</a></li>
+      <li><a href="#atributos">ATRIBUTOS</a></li>
+      <li><a href="#fichas-npc">FICHAS DE NPC</a></li>
+      <li><a href="#poderes">PODERES E HABILIDADES</a></li>
+      <li><a href="#evolucao">EVOLUÇÃO</a></li>
+      <li><a href="#movimento">MOVIMENTO E TURNO</a></li>
+      <li><a href="#rolagem">FERRAMENTAS</a></li>
+    </ul>
+  </nav>
+</section>
+
+<!-- Wrapper -->
+<div id="wrapper">
+  <!-- Main -->
+  <div id="main">
+
+    <!-- Introdução / Vídeo -->
+    <section id="introducao">
+      <div class="content-wrapper text-center">
+        <iframe width="100%" height="315" style="max-width: 560px;" src="https://www.youtube.com/embed/4XsiWeciYSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
     </section>
 
-    <!-- Wrapper -->
-    <div id="wrapper">
-        <div id="main">
-            
-            <!-- Introdução -->
-            <section id="introdução" class="py-4">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-12 col-md-8 text-center">
-                            <div class="video-container my-3">
-                                <iframe src="https://www.youtube.com/embed/4XsiWeciYSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Projeto -->
+    <section id="projeto">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">CONHEÇA O PROJETO:</strong></h3>
+        <p><br>
+          O RPG Ação V Reação é o RPG oficial da Federação Brasileira de Gamificação na Educação - FEBRAGAME, é uma solução Edtech especializada desenvolvida desde 2018 pelo Instituto Gularte. Em 2021 o RPG Ação V Reação foi premiado no concurso Infomatrix Brasil da Sociedade Latino-americana de Ciência e Tecnologia (SOLACYT). Em 2022 recebeu 1º lugar no prêmio Inova Gravataí na categoria Ensino Superior e Geração de Talentos, sendo exposto no Gramado Summit 2023. Em 2023 recebeu a medalha de bronze na feira QITEC e recebeu o prêmio Start Sebrae Gravataí. Foi exposto na 34° feira do livro de Gravataí no estande da secretaria municipal de inovação, ciência e tecnologia (Smict) e foi exposto da 17° feira do livro de Viamão no estande autores locais, em 2023 recebeu 3° lugar no prêmio Inova Gravataí na categoria Startups, sendo exposto no Gramado Summit 2024.
+        </p>
+      </div>
+    </section>
 
-            <!-- Projeto -->
-            <section id="projeto" class="py-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <h3><strong style="color:black;">CONHEÇA O PROJETO:</strong></h3>
-                            <p>O RPG Ação V Reação é o RPG oficial da Federação Brasileira de Gamificação na Educação - FEBRAGAME, é uma solução Edtech especializada desenvolvida desde 2018 pelo Instituto Gularte. Em 2021 o RPG Ação V Reação foi premiado no concurso Infomatrix Brasil da Sociedade Latino-americana de Ciência e Tecnologia (SOLACYT). Em 2022 recebeu 1º lugar no prêmio Inova Gravataí na categoria Ensino Superior e Geração de Talentos, sendo exposto no Gramado Summit 2023. Em 2023 recebeu a medalha de bronze na feira QITEC e recebeu o prêmio Start Sebrae Gravataí. Foi exposto na 34° feira do livro de Gravataí no estande da secretaria municipal de inovação, ciência e tecnologia (Smict) e foi exposto da 17° feira do livro de Viamão no estande autores locais, em 2023 recebeu 3° lugar no prêmio Inova Gravataí na categoria Startups, sendo exposto no Gramado Summit 2024.</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- O Sistema -->
+    <section id="sistema">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">1. O SISTEMA</strong></h3>
+        <p><br>
+          <strong>RPG Ação V Reação</strong> é um sistema de interpretação de papéis baseado em regras simples, decisões e consequências[cite: 2]. Utiliza apenas <strong>um dado de seis lados (D6)</strong> e pode ser usado para interpretar qualquer cenário: fantasia, ficção científica, terror, aventura, histórico ou outros[cite: 2].
+          <br><br>
+          A ideia central é: <em>"Toda ação tem uma reação"</em>[cite: 2]. O jogador descreve o que seu personagem pretende fazer, e o sistema determina o resultado[cite: 2].
+          <br><br>
+          <strong>Princípio do Sistema:</strong> O Ação V Reação não depende de um universo específico[cite: 2]. Suas regras formam uma base para interpretar personagens e resolver situações em qualquer cenário[cite: 2]. O universo, os personagens, os inimigos e a história podem mudar sem alterar a essência do sistema[cite: 2].
+        </p>
+      </div>
+    </section>
 
-            <!-- Regras Básicas -->
-            <section id="regrasbásicas" class="py-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <h3><strong style="color:black;">RPG Ação V Reação:</strong></h3>
-                            <p><strong>(O livro RPG Ação V Reação: O Reino da Bruxa possui um conjunto de regras únicas)</strong></p>
-                            <p>O Ação V Reação é um sistema baseado em um dado de 6 lados (d6), por ser de fácil aprendizado e com um sistema simplista te permite aprender a jogar em menos de 10 minutos.</p>
-                            <p><em>"Toda ação tem uma reação".</em></p>
-                            <p>
-                                <strong>Sistema de dados:</strong><br>
-                                1-3 Falha<br>
-                                4-6 Acerto
-                            </p>
-                            <p>
-                                <strong>ACERTO CRÍTICO (6)</strong><br>
-                                Ação: acerta a ação e anula a reação oposta.<br>
-                                Reação: acerta a reação e ganha uma ação imediata, tirando seis (6) no dado ganha 1 XP.
-                            </p>
-                            <p>
-                                <strong>FALHA CRÍTICA (1)</strong><br>
-                                Ação: falha na ação e perde sua próxima reação.<br>
-                                Reação: falha na reação e perde sua próxima ação.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Ações e Reações -->
+    <section id="acoes-reacoes">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">2. AÇÕES E REAÇÕES</strong></h3>
+        <p><br>Quando uma ação ou reação depender de sorte, role 1D6[cite: 2]:</p>
+        <div class="table-responsive">
+          <table class="table table-bordered text-dark bg-white">
+            <thead class="thead-dark">
+              <tr>
+                <th>Resultado</th>
+                <th>Efeito</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>4-5: Acerto</strong></td>
+                <td>Na ação, é realizada com sucesso e pode provocar uma reação oposta[cite: 2]. Na reação, anula a ação oposta[cite: 2].</td>
+              </tr>
+              <tr>
+                <td><strong>6: Acerto Crítico</strong></td>
+                <td>Na ação, não provoca reação[cite: 2]. Na reação, concede uma ação imediata[cite: 2]. Recebe 1 XP[cite: 2].</td>
+              </tr>
+              <tr>
+                <td><strong>2-3: Falha</strong></td>
+                <td>A ação ou reação falha[cite: 2].</td>
+              </tr>
+              <tr>
+                <td><strong>1: Falha Crítica</strong></td>
+                <td>Na ação, perde a próxima reação[cite: 2]. Na reação, perde a próxima ação[cite: 2].</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-            <!-- Cenários -->
-            <section id="cenários" class="py-4">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <h3><strong style="color:black;">ADAPTANDO CENÁRIOS:</strong></h3>
-                            <p>É possível recriar os cenários de seus filmes, séries, animes e obras favoritas utilizando a técnica de RESKIN (revestimento)...</p>
-                        </div>
-                    </div>
-                </div>
-            </section>
+    <!-- Atributos -->
+    <section id="atributos">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">3. ATRIBUTOS</strong></h3>
+        <p><br>
+          Os atributos principais são <strong>Corpo</strong> e <strong>Alma</strong>[cite: 2]. Corpo representa força física e saúde; Alma representa mente e energia mágica[cite: 2]. Cada nível concede 1 ponto de atributo[cite: 2].
+        </p>
+        <div class="table-responsive">
+          <table class="table table-bordered text-dark bg-white">
+            <thead class="thead-dark">
+              <tr>
+                <th>Atributo</th>
+                <th>Representa</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><strong>Corpo</strong></td>
+                <td>Força física e saúde[cite: 2].</td>
+              </tr>
+              <tr>
+                <td><strong>Alma</strong></td>
+                <td>Mente e energia mágica[cite: 2].</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
 
-            <!-- Rodapé e VLibras -->
-            <div class="container text-center py-4">
-                <div class="vendas">
-                    <strong>2023 Taverna Gularte Editora<br>Todos os direitos reservados.</strong>
-                </div>
+    <!-- Fichas de NPC -->
+    <section id="fichas-npc">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">4. EXEMPLO DE FICHAS DE NPC</strong></h3>
+        <p><br>
+          A tabela apresenta uma referência de NPCs por Rank, mostrando Vida, Poder e Recursos Mensais no contexto de Fantasia Medieval[cite: 2]. Funciona como exemplo de aplicação e pode ser usada pelo narrador para definir nível inicial dos personagens dos jogadores[cite: 2].
+        </p>
+        <div class="table-responsive">
+          <table class="table table-striped table-bordered text-dark bg-white">
+            <thead class="thead-dark">
+              <tr>
+                <th>Classe Social</th>
+                <th>Rank</th>
+                <th>Nível / Vida</th>
+                <th>Poder</th>
+                <th>Recurso Mensal</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td>Servos</td><td>D</td><td>10</td><td>5</td><td>20 PB</td></tr>
+              <tr><td>Camponeses</td><td>C</td><td>20</td><td>10</td><td>50 PB</td></tr>
+              <tr><td>Artesãos</td><td>B</td><td>30</td><td>15</td><td>70 PP</td></tr>
+              <tr><td>Mercadores</td><td>A</td><td>40</td><td>20</td><td>100 PO</td></tr>
+              <tr><td>Alta Nobreza</td><td>S</td><td>50</td><td>25</td><td>200 PO</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p><small style="color:black;"><strong>Conversão de Moedas:</strong> 1 PO (Peça de Ouro) = 10 PP (Peças de Prata) = 100 PB (Peças de Bronze)[cite: 2].</small></p>
+      </div>
+    </section>
+
+    <!-- Poderes e Habilidades -->
+    <section id="poderes">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">5. PODERES E HABILIDADES</strong></h3>
+        <p><br>
+          As habilidades podem causar dano, curar ou produzir efeitos especiais[cite: 2]. Seu poder é derivado dos atributos[cite: 2]:
+          <br><br>
+          • <strong>Poder Físico (PF):</strong> Metade do Corpo arredondado para baixo[cite: 2].<br>
+          • <strong>Poder Espiritual (PE):</strong> Metade da Alma arredondada para baixo[cite: 2].
+          <br><br>
+          <em>O efeito de uma habilidade é determinado pelo nível da habilidade multiplicado pelo poder correspondente[cite: 2].</em>
+        </p>
+      </div>
+    </section>
+
+    <!-- Evolução -->
+    <section id="evolucao">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">6. EVOLUÇÃO</strong></h3>
+        <p><br>
+          Para subir de nível, o personagem gasta <strong>6 XP multiplicados pelo nível atual mais 1</strong>[cite: 2]. Ao evoluir, recebe 1 ponto de atributo e pode criar ou aprimorar uma habilidade[cite: 2].
+        </p>
+      </div>
+    </section>
+
+    <!-- Movimento e Turno -->
+    <section id="movimento">
+      <div class="content-wrapper">
+        <h3><strong style="color:black;">7. MOVIMENTO E TURNO</strong></h3>
+        <p><br>
+          Em seu turno, o personagem pode mover-se até <strong>6 metros por nível</strong>, usar uma habilidade e realizar uma ação livre, como conversar ou interagir com objetos[cite: 2].
+        </p>
+      </div>
+    </section>
+
+    <!-- Ferramentas (Rolagem de Dados 3D) -->
+    <section id="rolagem">
+      <div class="content-wrapper text-center">
+        <div>
+          <a href="https://rpgavrad.github.io/" target="_blank"><img src="images/ad.png" alt="" /></a>
+        </div>
+        <br><br>
+        <div class="containerdice">
+          <div class="cube" id="cube">
+            <div class="front"><span class="fas fa-circle"></span></div>
+            <div class="back">
+              <pre class="firstPre"><span class="fas fa-circle"></span> <span class="fas fa-circle"></span> <span class="fas fa-circle"></span></pre>
+              <pre class="secondPre"><span class="fas fa-circle"></span> <span class="fas fa-circle"></span> <span class="fas fa-circle"></span></pre>
             </div>
-
+            <div class="top"><span class="fas fa-circle"></span><span class="fas fa-circle"></span></div>
+            <div class="left"><span class="fas fa-circle"></span><span class="fas fa-circle"></span><span class="fas fa-circle"></span></div>
+            <div class="right"><span class="fas fa-circle"></span><span class="fas fa-circle"></span><span class="fas fa-circle"></span><span class="fas fa-circle"></span><span class="fas fa-circle"></span></div>
+            <div class="bottom"><span class="fas fa-circle"></span><span class="fas fa-circle"></span><span class="fas fa-circle"></span><span class="fas fa-circle"></span></div>
+          </div>
         </div>
-    </div>
+      </div>
+    </section>
 
-    <!-- VLibras Plugin -->
-    <div vw class="enabled">
-        <div vw-access-button class="active"></div>
-        <div vw-plugin-wrapper>
-            <div class="vw-plugin-top-wrapper"></div>
-        </div>
-    </div>
+    <footer class="text-center py-4">
+      <strong>© Taverna Gularte Editora. Todos os direitos reservados.</strong>
+    </footer>
 
-    <!-- Scripts -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mlykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/I8WvCWPIPm49" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
-    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/browser.min.js"></script>
-    <script src="assets/js/breakpoints.min.js"></script>
-    <script src="assets/js/util.js"></script>
-    <script src="assets/js/main.js"></script>
+  </div>
+</div>
+
+<!-- Scripts -->
+<script type="text/javascript">
+  let cube = document.getElementById('cube');
+  let angleArray = [
+    [0,0,0],
+    [-310,-362,-38],
+    [-400,-320,-2],
+    [135,-217,-88],
+    [-224,-317,5],
+    [-47,-219,-81],
+    [-133,-360,-53]
+  ];
+
+  if (cube) {
+    cube.addEventListener('click', function(e){
+      cube.style.animation = 'animate 1.4s linear';
+      const randomAngle = Math.floor(Math.random() * 6) + 1;
+      cube.style.transform = 'rotateX('+angleArray[randomAngle][0]+'deg) rotateY('+angleArray[randomAngle][1]+'deg) rotateZ('+angleArray[randomAngle][2]+'deg)';
+      cube.style.transition = '1s linear';
+    });
+  }
+</script>
+
+<!-- Google Translate Script -->
+<script type="text/javascript">
+  function googleTranslateElementInit() {
+    new google.translate.TranslateElement({
+      pageLanguage: 'pt',
+      includedLanguages: 'en',
+      layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+    }, 'google_translate_element');
+  }
+
+  function translatePage(lang) {
+    var select = document.querySelector('.goog-te-combo');
+    if (select) {
+      select.value = lang;
+      select.dispatchEvent(new Event('change'));
+    } else {
+      var checkExist = setInterval(function() {
+        var selectInterval = document.querySelector('.goog-te-combo');
+        if (selectInterval) {
+          selectInterval.value = lang;
+          selectInterval.dispatchEvent(new Event('change'));
+          clearInterval(checkExist);
+        }
+      }, 100);
+    }
+  }
+</script>
+<script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
 </body>
 </html>
