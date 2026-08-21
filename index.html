@@ -3,7 +3,6 @@
 <head>
     <title>RPGAVR</title>
     <meta charset="utf-8" />
-    <!-- Viewport corrigido para garantir o enquadramento perfeito em dispositivos móveis -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="keywords" content="rpgavr, rpg ação v reação, wilson costa">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -15,7 +14,6 @@
     <link rel="shortcut icon" href="images/rpgavr.ico">
     
     <style>
-        /* Regras adicionais de contenção responsiva */
         body {
             overflow-x: hidden;
         }
@@ -25,7 +23,7 @@
         }
         .video-container {
             position: relative;
-            padding-bottom: 56.25%; /* Proporção 16:9 */
+            padding-bottom: 56.25%;
             height: 0;
             overflow: hidden;
             max-width: 100%;
@@ -40,6 +38,18 @@
         img {
             max-width: 100%;
             height: auto;
+        }
+        /* Estilização responsiva para o container do dado 3D */
+        #dice-container {
+            width: 100%;
+            max-width: 300px;
+            height: 300px;
+            margin: 0 auto;
+            position: relative;
+        }
+        #dice-container canvas {
+            width: 100% !important;
+            height: 100% !important;
         }
     </style>
 </head>
@@ -133,6 +143,19 @@
                 </div>
             </section>
 
+            <!-- Ferramentas / Rolagem de Dado 3D -->
+            <section id="rolagem" class="py-4">
+                <div class="container">
+                    <div class="row text-center">
+                        <div class="col-12">
+                            <h3><strong style="color:black;">ROLANDO DADOS (3D):</strong></h3>
+                            <div id="dice-container"></div>
+                            <button id="roll-btn" class="btn btn-primary mt-3">Rolar Dado (d6)</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Cenários -->
             <section id="cenários" class="py-4">
                 <div class="container">
@@ -169,6 +192,53 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
     <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
     <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    
+    <!-- Three.js para o Dado 3D -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script>
+        // Renderizador e cena do Dado 3D
+        const container = document.getElementById('dice-container');
+        if (container) {
+            const scene = new THREE.Scene();
+            const camera = new THREE.PerspectiveCamera(75, container.clientWidth / container.clientHeight, 0.1, 1000);
+            const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
+            
+            renderer.setSize(container.clientWidth, container.clientHeight);
+            container.appendChild(renderer.domElement);
+
+            const geometry = new THREE.BoxGeometry(2, 2, 2);
+            const material = new THREE.MeshNormalMaterial();
+            const cube = new THREE.Mesh(geometry, material);
+            scene.add(cube);
+
+            camera.position.z = 5;
+
+            function animate() {
+                requestAnimationFrame(animate);
+                cube.rotation.x += 0.01;
+                cube.rotation.y += 0.01;
+                renderer.render(scene, camera);
+            }
+            animate();
+
+            const rollBtn = document.getElementById('roll-btn');
+            if (rollBtn) {
+                rollBtn.addEventListener('click', () => {
+                    cube.rotation.x += Math.PI * (Math.floor(Math.random() * 4) + 1);
+                    cube.rotation.y += Math.PI * (Math.floor(Math.random() * 4) + 1);
+                });
+            }
+
+            window.addEventListener('resize', () => {
+                if (container.clientWidth > 0) {
+                    camera.aspect = container.clientWidth / container.clientHeight;
+                    camera.updateProjectionMatrix();
+                    renderer.setSize(container.clientWidth, container.clientHeight);
+                }
+            });
+        }
+    </script>
+
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/browser.min.js"></script>
     <script src="assets/js/breakpoints.min.js"></script>
