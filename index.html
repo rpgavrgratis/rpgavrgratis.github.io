@@ -3,42 +3,41 @@
 <head>
     <title>RPGAVR</title>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+    <!-- Viewport corrigido para garantir o enquadramento perfeito em dispositivos móveis -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
     <meta name="keywords" content="rpgavr, rpg ação v reação, wilson costa">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     
-    <!-- CSS Dependencies -->
     <link rel="stylesheet" href="assets/css/main.css" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    
     <link rel="shortcut icon" href="images/rpgavr.ico">
-
-    <!-- Componente 3D WebGL (Google Model-Viewer) -->
-    <script type="module" src="https://ajax.googleapis.com/ajax/libs/model-viewer/3.4.0/model-viewer.min.js"></script>
-
+    
     <style>
-        /* Ajustes de Responsividade Personalizados */
-        .embed-responsive-16by9 {
+        /* Regras adicionais de contenção responsiva */
+        body {
+            overflow-x: hidden;
+        }
+        .container {
+            padding-left: 15px;
+            padding-right: 15px;
+        }
+        .video-container {
+            position: relative;
+            padding-bottom: 56.25%; /* Proporção 16:9 */
+            height: 0;
+            overflow: hidden;
             max-width: 100%;
-            margin: 0 auto;
         }
-        
-        /* Container para o seu Dado/Objeto 3D */
-        .model-3d-container {
-            width: 100%;
-            height: 400px;
-            max-width: 600px;
-            margin: 20px auto;
-            background: #1a1a1a;
-            border-radius: 8px;
-        }
-
-        model-viewer {
+        .video-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
         }
-
-        canvas#canvas {
+        img {
             max-width: 100%;
             height: auto;
         }
@@ -46,79 +45,134 @@
 </head>
 <body class="is-preload">
 
-<!-- Header -->
-<section id="header">
-    <header>
-        <span class="image avatar"><img src="images/avatar.jpg" alt="Avatar" /></span>
-        <h1 id="logo">
-            <a href="https://linktr.ee/RPGAVR" class="btn btn-light font-weight-bold text-dark">Saiba Mais!</a>
-            <a href="https://rpgavr-com.translate.goog/?_x_tr_sl=pt&_x_tr_tl=en&_x_tr_hl=pt-BR&_x_tr_pto=wapp">
-                <img src="images/eua.png" alt="English Version" />
-            </a>
-        </h1>
-    </header>
-    <nav id="nav">
-        <ul>
-            <li><a href="#projeto" class="active">PROJETO</a></li>
-            <li><a href="#regrasbásicas">REGRAS BÁSICAS</a></li>
-            <li><a href="#raças">RAÇAS</a></li>
-            <li><a href="#classes">CLASSES</a></li>
-            <li><a href="#bestiário">BESTIÁRIO</a></li>
-            <li><a href="#itens">ITENS</a></li>
-            <li><a href="#cenários">CENÁRIOS</a></li>
-            <li><a href="#rolagem">FERRAMENTAS</a></li>
-        </ul>
-    </nav>
-</section>
+    <!-- Header -->
+    <section id="header">
+        <header>
+            <span class="image avatar"><img src="images/avatar.jpg" alt="Avatar" /></span>
+            <h1 id="logo">
+                <a href="https://linktr.ee/RPGAVR" target="_blank">
+                    <button type="button" class="btn btn-light"><strong style="color:black;">Saiba Mais!</strong></button>
+                </a>
+                <a href="https://rpgavr-com.translate.goog/?_x_tr_sl=pt&_x_tr_tl=en&_x_tr_hl=pt-BR&_x_tr_pto=wapp">
+                    <img src="images/eua.png" alt="English Version" />
+                </a>
+            </h1>
+        </header>
+        <nav id="nav">
+            <ul>
+                <li><a href="#projeto" class="active">PROJETO</a></li>
+                <li><a href="#regrasbásicas">REGRAS BÁSICAS</a></li>
+                <li><a href="#raças">RAÇAS</a></li>
+                <li><a href="#classes">CLASSES</a></li>
+                <li><a href="#bestiário">BESTIÁRIO</a></li>
+                <li><a href="#itens">ITENS</a></li>
+                <li><a href="#cenários">CENÁRIOS</a></li>
+                <li><a href="#rolagem">FERRAMENTAS</a></li>
+            </ul>
+        </nav>
+        <footer>
+            <ul class="icons"></ul>
+        </footer>
+    </section>
 
-<!-- Wrapper -->
-<div id="wrapper">
-    <div id="main">
-        <div class="container-fluid p-3 p-md-5">
-
-            <!-- Vídeo Responsivo -->
-            <section id="introdução" class="my-4">
-                <div class="embed-responsive embed-responsive-16by9">
-                    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/4XsiWeciYSE" allowfullscreen></iframe>
+    <!-- Wrapper -->
+    <div id="wrapper">
+        <div id="main">
+            
+            <!-- Introdução -->
+            <section id="introdução" class="py-4">
+                <div class="container">
+                    <div class="row justify-content-center">
+                        <div class="col-12 col-md-8 text-center">
+                            <div class="video-container my-3">
+                                <iframe src="https://www.youtube.com/embed/4XsiWeciYSE" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Visualizador 3D -->
-            <section id="objeto-3d" class="my-5 text-center">
-                <h3><strong style="color:black;">VISUALIZAÇÃO 3D</strong></h3>
-                <div class="model-3d-container">
-                    <!-- Substitua o src pelo caminho do seu arquivo 3D (.gltf ou .glb) -->
-                    <model-viewer src="assets/models/seu_dado_3d.glb" 
-                                  alt="Dado 3D RPGAVR" 
-                                  auto-rotate 
-                                  camera-controls 
-                                  ar 
-                                  shadow-intensity="1">
-                    </model-viewer>
+            <!-- Projeto -->
+            <section id="projeto" class="py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3><strong style="color:black;">CONHEÇA O PROJETO:</strong></h3>
+                            <p>O RPG Ação V Reação é o RPG oficial da Federação Brasileira de Gamificação na Educação - FEBRAGAME, é uma solução Edtech especializada desenvolvida desde 2018 pelo Instituto Gularte. Em 2021 o RPG Ação V Reação foi premiado no concurso Infomatrix Brasil da Sociedade Latino-americana de Ciência e Tecnologia (SOLACYT). Em 2022 recebeu 1º lugar no prêmio Inova Gravataí na categoria Ensino Superior e Geração de Talentos, sendo exposto no Gramado Summit 2023. Em 2023 recebeu a medalha de bronze na feira QITEC e recebeu o prêmio Start Sebrae Gravataí. Foi exposto na 34° feira do livro de Gravataí no estande da secretaria municipal de inovação, ciência e tecnologia (Smict) e foi exposto da 17° feira do livro de Viamão no estande autores locais, em 2023 recebeu 3° lugar no prêmio Inova Gravataí na categoria Startups, sendo exposto no Gramado Summit 2024.</p>
+                        </div>
+                    </div>
                 </div>
             </section>
 
-            <!-- Demais Seções Mantidas com Grid Limpo -->
-            <section id="projeto" class="my-4">
-                <h3><strong style="color:black;">CONHEÇA O PROJETO:</strong></h3>
-                <p>O RPG Ação V Reação é o RPG oficial da Federação Brasileira de Gamificação na Educação - FEBRAGAME...</p>
-            </section>
-
-            <!-- Seção Canvas Responsivo -->
-            <section id="cenários" class="my-4">
-                <h3><strong style="color:black;">ADAPTANDO CENÁRIOS:</strong></h3>
-                <div class="text-center">
-                    <canvas id="canvas"></canvas>
+            <!-- Regras Básicas -->
+            <section id="regrasbásicas" class="py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3><strong style="color:black;">RPG Ação V Reação:</strong></h3>
+                            <p><strong>(O livro RPG Ação V Reação: O Reino da Bruxa possui um conjunto de regras únicas)</strong></p>
+                            <p>O Ação V Reação é um sistema baseado em um dado de 6 lados (d6), por ser de fácil aprendizado e com um sistema simplista te permite aprender a jogar em menos de 10 minutos.</p>
+                            <p><em>"Toda ação tem uma reação".</em></p>
+                            <p>
+                                <strong>Sistema de dados:</strong><br>
+                                1-3 Falha<br>
+                                4-6 Acerto
+                            </p>
+                            <p>
+                                <strong>ACERTO CRÍTICO (6)</strong><br>
+                                Ação: acerta a ação e anula a reação oposta.<br>
+                                Reação: acerta a reação e ganha uma ação imediata, tirando seis (6) no dado ganha 1 XP.
+                            </p>
+                            <p>
+                                <strong>FALHA CRÍTICA (1)</strong><br>
+                                Ação: falha na ação e perde sua próxima reação.<br>
+                                Reação: falha na reação e perde sua próxima ação.
+                            </p>
+                        </div>
+                    </div>
                 </div>
             </section>
+
+            <!-- Cenários -->
+            <section id="cenários" class="py-4">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-12">
+                            <h3><strong style="color:black;">ADAPTANDO CENÁRIOS:</strong></h3>
+                            <p>É possível recriar os cenários de seus filmes, séries, animes e obras favoritas utilizando a técnica de RESKIN (revestimento)...</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Rodapé e VLibras -->
+            <div class="container text-center py-4">
+                <div class="vendas">
+                    <strong>2023 Taverna Gularte Editora<br>Todos os direitos reservados.</strong>
+                </div>
+            </div>
 
         </div>
     </div>
-</div>
 
-<!-- JS Dependencies -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <!-- VLibras Plugin -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+
+    <!-- Scripts -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mlykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/I8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>new window.VLibras.Widget('https://vlibras.gov.br/app');</script>
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
 </body>
 </html>
