@@ -286,6 +286,78 @@ A ideia central é: toda ação pode gerar uma reação. O jogador descreve o qu
 <h3><strong style="color:black;">10. FERRAMENTAS:</strong></h3>
 <div class="vendas">
 <a href="https://rpgavrad.github.io/"><img src="images/ad.png" alt="" /></a>
+<br><br>
+
+<!-- Estrutura do Contador de XP -->
+<div class="xp-counter-container">
+  <button class="xp-btn" onclick="alterarXP(-1)">-</button>
+  <span class="xp-display">XP: <span id="xp-valor">0</span></span>
+  <button class="xp-btn" onclick="alterarXP(1)">+</button>
+</div>
+
+<!-- Estilização CSS -->
+<style>
+  .xp-counter-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #1a1a1a;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    user-select: none;
+  }
+
+  .xp-display {
+    color: #FFD700; /* Dourado combinando com o tema */
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 90px;
+    text-align: center;
+  }
+
+  .xp-btn {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .xp-btn:hover {
+    background-color: #555;
+  }
+
+  .xp-btn:active {
+    transform: scale(0.95);
+  }
+</style>
+
+<!-- Lógica JavaScript -->
+<script>
+  let xpAtual = 0;
+
+  function alterarXP(valor) {
+    xpAtual += valor;
+    
+    // Trava para não ficar menor que zero
+    if (xpAtual < 0) {
+      xpAtual = 0;
+    }
+    
+    document.getElementById('xp-valor').innerText = xpAtual;
+  }
+</script>
+  
+<br><br>
 </div>
 <br><br>
 <div class="containerdice">
