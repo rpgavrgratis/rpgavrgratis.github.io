@@ -1,0 +1,408 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>RPGAVR - Deck de NPCs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<style>
+  :root{
+    --ouro: #FFD700;
+    --fundo: #0d0d0d;
+    --painel: #1a1a1a;
+    --borda: #333;
+    --verso: #4a0e0e;
+  }
+
+  * { box-sizing: border-box; }
+
+  body{
+    margin:0;
+    background: var(--fundo);
+    color:#eee;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px 12px 60px;
+  }
+
+  h1{
+    text-align:center;
+    color: var(--ouro);
+    text-shadow: 0 0 8px rgba(255,215,0,0.35);
+    margin-bottom: 4px;
+  }
+  .subtitulo{
+    text-align:center;
+    color:#aaa;
+    margin-top:0;
+    margin-bottom: 28px;
+    font-size: 0.9rem;
+  }
+
+  .painel-controles{
+    display:flex;
+    justify-content:center;
+    gap:12px;
+    flex-wrap:wrap;
+    margin-bottom: 30px;
+  }
+
+  .btn{
+    background-color:#333;
+    color:#fff;
+    border:1px solid #555;
+    border-radius:6px;
+    padding:10px 18px;
+    font-weight:bold;
+    cursor:pointer;
+    transition: background-color .2s, transform .1s;
+  }
+  .btn:hover{ background-color:#555; }
+  .btn:active{ transform: scale(0.96); }
+  .btn:disabled{ opacity:0.4; cursor:not-allowed; }
+  .btn-ouro{
+    background-color: var(--ouro);
+    color:#000;
+    border-color: var(--ouro);
+  }
+  .btn-ouro:hover{ background-color:#e6c200; }
+
+  .secao{
+    max-width: 900px;
+    margin: 0 auto 36px;
+  }
+  .secao h2{
+    color: var(--ouro);
+    border-bottom: 1px solid var(--borda);
+    padding-bottom: 6px;
+    font-size: 1.1rem;
+  }
+
+  /* ---- Baralho principal ---- */
+  .area-baralho{
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    gap: 40px;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+  }
+
+  .baralho-pilha{
+    position:relative;
+    width: 110px;
+    height: 160px;
+    cursor:pointer;
+  }
+  .baralho-pilha .carta-verso{
+    position:absolute;
+    width:100%;
+    height:100%;
+    border-radius:10px;
+    background: linear-gradient(145deg, var(--verso), #1a0303);
+    border: 2px solid var(--ouro);
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color: var(--ouro);
+    font-size: 1.6rem;
+    transition: transform .15s;
+  }
+  .baralho-pilha:hover .carta-verso{ transform: translateY(-4px); }
+  .baralho-pilha .carta-verso:nth-child(1){ transform: translate(4px,4px) rotate(-3deg); z-index:1; }
+  .baralho-pilha .carta-verso:nth-child(2){ transform: translate(2px,2px) rotate(2deg); z-index:2; }
+  .baralho-pilha .carta-verso:nth-child(3){ z-index:3; }
+  .baralho-pilha:hover .carta-verso:nth-child(3){ transform: translateY(-6px); }
+
+  .baralho-info{
+    text-align:center;
+    color:#ccc;
+  }
+  .baralho-info .numero{
+    font-size: 2rem;
+    color: var(--ouro);
+    font-weight:bold;
+    display:block;
+  }
+
+  /* ---- Cartas selecionadas ---- */
+  .mesa{
+    display:grid;
+    grid-template-columns: repeat(5, minmax(90px, 1fr));
+    gap: 14px;
+    max-width: 700px;
+    margin: 0 auto;
+  }
+  @media (max-width: 620px){
+    .mesa{ grid-template-columns: repeat(2, 1fr); }
+  }
+
+  .slot{
+    aspect-ratio: 2 / 3;
+    border-radius: 10px;
+    border: 2px dashed #444;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#555;
+    font-size:0.8rem;
+    text-align:center;
+    padding:6px;
+  }
+
+  .carta{
+    width:100%;
+    height:100%;
+    border-radius: 10px;
+    background: var(--painel);
+    border: 2px solid var(--ouro);
+    box-shadow: 0 3px 8px rgba(0,0,0,0.5);
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    padding: 8px;
+    cursor:pointer;
+    animation: revelar .35s ease;
+    text-align:center;
+  }
+  .carta:hover{ box-shadow: 0 0 14px rgba(255,215,0,0.5); }
+  .carta .numero-carta{
+    font-size: 1.8rem;
+    font-weight:bold;
+    color: var(--ouro);
+  }
+  .carta .nome-carta{
+    font-size: 0.85rem;
+    color: #eee;
+    margin-top: 4px;
+  }
+  .carta .dica{
+    font-size: 0.65rem;
+    color:#888;
+    margin-top: 6px;
+  }
+
+  @keyframes revelar{
+    from{ transform: scale(0.6) rotateY(90deg); opacity:0; }
+    to{ transform: scale(1) rotateY(0deg); opacity:1; }
+  }
+
+  /* ---- Descarte ---- */
+  .descarte-pilha{
+    display:flex;
+    flex-wrap:wrap;
+    gap: 10px;
+    justify-content:center;
+    min-height: 130px;
+    align-items:center;
+  }
+  .descarte-pilha .vazio{
+    color:#555;
+    font-style: italic;
+  }
+  .carta-mini{
+    width: 70px;
+    height: 100px;
+    border-radius: 6px;
+    background: var(--painel);
+    border: 1px solid #777;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    color:#999;
+    font-size: 0.7rem;
+    opacity: 0.85;
+  }
+  .carta-mini .numero-carta{
+    font-size: 1.1rem;
+    color: #bbb;
+    font-weight:bold;
+  }
+
+  .aviso{
+    text-align:center;
+    color: var(--ouro);
+    min-height: 20px;
+    margin-top: 14px;
+    font-size: 0.9rem;
+  }
+</style>
+</head>
+<body>
+
+<h1>Deck de NPCs</h1>
+<p class="subtitulo">RPG Ação V Reação — clique no baralho para comprar, clique em uma carta da mesa para descartar</p>
+
+<div class="painel-controles">
+  <button class="btn btn-ouro" onclick="embaralhar()">Embaralhar</button>
+  <button class="btn" onclick="reiniciarTudo()">Reiniciar Deck</button>
+</div>
+
+<section class="secao">
+  <div class="area-baralho">
+    <div class="baralho-pilha" id="pilha-baralho" onclick="comprarCarta()">
+      <div class="carta-verso"><span class="fas-fallback">🂠</span></div>
+      <div class="carta-verso"><span class="fas-fallback">🂠</span></div>
+      <div class="carta-verso"><span class="fas-fallback">🂠</span></div>
+    </div>
+    <div class="baralho-info">
+      <span class="numero" id="contador-baralho">34</span>
+      cartas no baralho
+    </div>
+  </div>
+  <p class="aviso" id="aviso"></p>
+</section>
+
+<section class="secao">
+  <h2>Cartas Selecionadas (máx. 5)</h2>
+  <div class="mesa" id="mesa"></div>
+</section>
+
+<section class="secao">
+  <h2>Descarte (<span id="contador-descarte">0</span>)</h2>
+  <div class="descarte-pilha" id="descarte"></div>
+</section>
+
+<script>
+/* ==========================================================
+   DADOS DAS CARTAS
+   Edite o array abaixo para dar nome/descrição a cada NPC.
+   Se deixar "nome" vazio, a carta mostra apenas o número.
+   ========================================================== */
+const TOTAL_CARTAS = 34;
+
+let cartasBase = [];
+for (let i = 1; i <= TOTAL_CARTAS; i++) {
+  cartasBase.push({
+    id: i,
+    nome: "",       // ex: "Guarda da Vila"
+    detalhe: ""      // ex: "Rank C - Camponês"
+  });
+}
+
+/* ==========================================================
+   ESTADO DO JOGO
+   ========================================================== */
+let baralho = [];   // cartas ainda não compradas
+let mesa = [];       // até 5 cartas selecionadas
+let descarte = [];   // cartas descartadas
+
+const MAX_MESA = 5;
+
+function embaralhar(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+  return arr;
+}
+
+function iniciarDeck() {
+  baralho = embaralhar([...cartasBase]);
+  mesa = [];
+  descarte = [];
+  render();
+}
+
+function embaralharBaralho() {
+  embaralhar(baralho);
+  mostrarAviso("Baralho embaralhado.");
+  render();
+}
+
+function comprarCarta() {
+  const vagas = mesa.filter(c => c === null || c === undefined);
+  const posicaoLivre = mesa.length < MAX_MESA ? mesa.length : mesa.findIndex(c => c === null);
+
+  if (mesa.filter(Boolean).length >= MAX_MESA) {
+    mostrarAviso("As 5 vagas estão ocupadas. Descarte uma carta para comprar outra.");
+    return;
+  }
+
+  if (baralho.length === 0) {
+    mostrarAviso("O baralho acabou! Reinicie ou embaralhe o descarte de volta.");
+    return;
+  }
+
+  const carta = baralho.pop();
+
+  // acha primeira vaga vazia (null) ou adiciona no final
+  const idxVazio = mesa.indexOf(null);
+  if (idxVazio !== -1) {
+    mesa[idxVazio] = carta;
+  } else {
+    mesa.push(carta);
+  }
+
+  mostrarAviso("");
+  render();
+}
+
+function descartarCarta(indice) {
+  const carta = mesa[indice];
+  if (!carta) return;
+  descarte.push(carta);
+  mesa[indice] = null;
+  render();
+}
+
+function reiniciarTudo() {
+  if (!confirm("Isso vai juntar todas as cartas (mesa + descarte) e embaralhar um novo baralho de " + TOTAL_CARTAS + " cartas. Continuar?")) return;
+  iniciarDeck();
+  mostrarAviso("Deck reiniciado e embaralhado.");
+}
+
+function mostrarAviso(msg) {
+  document.getElementById('aviso').textContent = msg;
+}
+
+function render() {
+  document.getElementById('contador-baralho').textContent = baralho.length;
+  document.getElementById('contador-descarte').textContent = descarte.length;
+
+  // Mesa
+  const mesaEl = document.getElementById('mesa');
+  mesaEl.innerHTML = "";
+  for (let i = 0; i < MAX_MESA; i++) {
+    const carta = mesa[i];
+    if (carta) {
+      const div = document.createElement('div');
+      div.className = 'carta';
+      div.onclick = () => descartarCarta(i);
+      div.innerHTML = `
+        <div class="numero-carta">${carta.id}</div>
+        ${carta.nome ? `<div class="nome-carta">${carta.nome}</div>` : ''}
+        ${carta.detalhe ? `<div class="dica">${carta.detalhe}</div>` : ''}
+        <div class="dica">clique para descartar</div>
+      `;
+      mesaEl.appendChild(div);
+    } else {
+      const div = document.createElement('div');
+      div.className = 'slot';
+      div.textContent = 'vazio';
+      mesaEl.appendChild(div);
+    }
+  }
+
+  // Descarte
+  const descarteEl = document.getElementById('descarte');
+  descarteEl.innerHTML = "";
+  if (descarte.length === 0) {
+    descarteEl.innerHTML = '<span class="vazio">Nenhuma carta descartada ainda.</span>';
+  } else {
+    descarte.slice().reverse().forEach(c => {
+      const div = document.createElement('div');
+      div.className = 'carta-mini';
+      div.innerHTML = `<div class="numero-carta">${c.id}</div>${c.nome ? `<div>${c.nome}</div>` : ''}`;
+      descarteEl.appendChild(div);
+    });
+  }
+}
+
+// inicializa
+iniciarDeck();
+</script>
+
+</body>
+</html>
