@@ -1,0 +1,506 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title> RPGAVR </title>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="keywords" content="rpgavr, rpg ação v reação, wilson costa">
+<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<link rel="stylesheet" href="assets/css/main.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mlykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/I8WvCWPIPm49" crossorigin="anonymous"></script>
+<link rel="shortcut icon" href="images/rpgavr.ico" >
+
+<style>
+  th {
+    color: #ffffff !important;
+  }
+</style>
+  
+</head>
+<body class="is-preload">
+<!-- Header -->
+<section id="header">
+<header>
+<span class="image avatar"><img src="images/avatar.jpg" alt="" /></span>
+<h1 id="logo">
+<a href="https://www.youtube.com/@CANALRPGAVR"><button type="button" class="btn btn-light"><strong style="color:black;">Saiba Mais!</strong></button></a>
+</h1>
+
+<style>
+  th {
+    color: #ffffff !important;
+  }
+</style>
+
+</header>
+<nav id="nav">
+<ul>
+<li><a href="#sistema" class="active">O SISTEMA</a></li>
+<li><a href="#acoes-reacoes">AÇÕES E REAÇÕES</a></li>
+<li><a href="#atributos">ATRIBUTOS</a></li>
+<li><a href="#fichas-npc">FICHAS DE NPC</a></li>
+<li><a href="#poderes-habilidades">PODERES E HABILIDADES</a></li>
+<li><a href="#evolucao">EVOLUÇÃO</a></li>
+<li><a href="#narrador">NARRADOR</a></li>
+<li><a href="#movimento-turno">MOVIMENTO E TURNO</a></li>
+<li><a href="#principio">PRINCÍPIO DO SISTEMA</a></li>
+<li><a href="#rolagem">FERRAMENTAS</a></li>
+</ul>
+</nav>
+<footer>
+<ul class="icons">
+</ul>
+</footer>
+</section>
+
+<!-- Wrapper -->
+<div id="wrapper">
+<!-- Main -->
+<div id="main">
+<div class="vendas1">
+
+<!-- One -->
+<section id="introdução">
+<div class="image main" data-position="center">
+<div class="vendas">
+<div class="rma">
+<iframe width="445" height="245" src="https://www.youtube.com/embed/abK6A--112U?si=HyExR-RqCz92a6wD" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+</div>
+<div class="container">
+<br><br>
+<header class="major">
+</header>
+</div>
+<br><br>
+</section>
+
+<br><br><br><br>
+  <!-- Two -->
+<section id="sistema">
+<div class="container">
+<h3><strong style="color:black;">1. O SISTEMA</strong></h3>
+<p><br>
+RPG Ação V Reação é um sistema de interpretação de papéis baseado em regras simples, decisões e consequências. Utiliza apenas um dado de seis lados (D6) e pode ser usado para interpretar qualquer cenário: fantasia, ficção científica, terror, aventura, histórico ou outros.<br><br>
+A ideia central é: toda ação pode gerar uma reação. O jogador descreve o que seu personagem pretende fazer, e o sistema determina o resultado.
+<br><br>
+</p>
+</div>
+</section>
+
+<section id="acoes-reacoes">
+<div class="container">
+<h3><strong style="color:black;">2. AÇÕES E REAÇÕES</strong></h3>
+<p>Quando uma ação ou reação depender de sorte, role 1D6:</p>
+<table class="table table-dark table-striped" style="color: #FFD700 !important;">
+  <thead>
+    <tr>
+      <th scope="col">Resultado</th>
+      <th scope="col">Efeito</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">4-5: Acerto</th>
+      <td>A ação é realizada com sucesso e pode provocar uma reação oposta. Na reação, anula a ação oposta.</td>
+    </tr>
+    <tr>
+      <th scope="row">6: Acerto Crítico</th>
+      <td>Na ação, não provoca reação. Na reação, concede uma ação imediata. Recebe 1 XP.</td>
+    </tr>
+    <tr>
+      <th scope="row">2-3: Falha</th>
+      <td>A ação ou reação falha.</td>
+    </tr>
+    <tr>
+      <th scope="row">1: Falha Crítica</th>
+      <td>Na ação, perde a próxima reação. Na reação, perde a próxima ação.</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+</section>
+
+<section id="atributos">
+<div class="container">
+<h3><strong style="color:black;">3. ATRIBUTOS</strong></h3>
+<p>Os atributos principais são Corpo e Alma. Corpo representa força física e saúde; Alma representa mente e energia mágica. Cada nível concede 1 ponto de atributo.</p>
+<table class="table table-dark table-striped" style="color: #FFD700 !important;">
+  <thead>
+    <tr>
+      <th scope="col">Atributo</th>
+      <th scope="col">Representa</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Corpo</th>
+      <td>Força física e saúde.</td>
+    </tr>
+    <tr>
+      <th scope="row">Alma</th>
+      <td>Mente e energia mágica.</td>
+    </tr>
+  </tbody>
+</table>
+<br>
+</div>
+</section>
+
+<section id="fichas-npc">
+<div class="container">
+<h3><strong style="color:black;">4. EXEMPLO DE FICHAS DE NPC</strong></h3>
+<p>A tabela apresenta uma referência de NPCs por Rank, mostrando Vida, Poder e Recursos Mensais, no contexto de um cenário de Fantasia Medieval. Ela funciona como exemplo de aplicação, não como uma regra obrigatória do sistema e pode ser usada pelo narrador para definir nível inicial dos personagens dos jogadores no início da campanha, o qual podem empregar no desenvolvimento de suas habilidades iniciais.</p>
+
+<div class="table-responsive">
+  <table class="table table-dark table-striped" style="color: #FFD700 !important;">
+    <thead>
+      <tr>
+        <th scope="col">Classe Social</th>
+        <th scope="col">Rank</th>
+        <th scope="col">Nível / Atributos Somados</th>
+        <th scope="col">Poder Somado</th>
+        <th scope="col">Recurso Mensal</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Servos</td>
+        <td>D</td>
+        <td>10</td>
+        <td>5</td>
+        <td>20 PB</td>
+      </tr>
+      <tr>
+        <td>Camponeses</td>
+        <td>C</td>
+        <td>20</td>
+        <td>10</td>
+        <td>50 PB</td>
+      </tr>
+      <tr>
+        <td>Artesãos</td>
+        <td>B</td>
+        <td>30</td>
+        <td>15</td>
+        <td>70 PP</td>
+      </tr>
+      <tr>
+        <td>Mercadores</td>
+        <td>A</td>
+        <td>40</td>
+        <td>20</td>
+        <td>100 PO</td>
+      </tr>
+      <tr>
+        <td>Alta Nobreza</td>
+        <td>S</td>
+        <td>50</td>
+        <td>25</td>
+        <td>200 PO</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p><em>Equivalência Monetária: 1 PO (Peça de Ouro) = 10 PP (Peças de Prata) = 100 PB (Peças de Bronze).</em></p>
+<br>
+</div>
+</section>
+
+<section id="poderes-habilidades">
+<div class="container">
+<h3><strong style="color:black;">5. PODERES E HABILIDADES</strong></h3>
+<p>As habilidades podem causar dano, curar ou produzir efeitos especiais. Seu poder é derivado dos atributos:</p>
+<table class="table table-dark table-striped" style="color: #FFD700 !important;">
+  <thead>
+    <tr>
+      <th scope="col">Poder</th>
+      <th scope="col">Cálculo</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">Poder Físico (PF)</th>
+      <td>Metade do Corpo arredondado para baixo.</td>
+    </tr>
+    <tr>
+      <th scope="row">Poder Espiritual (PE)</th>
+      <td>Metade da Alma arredondada para baixo.</td>
+    </tr>
+  </tbody>
+</table>
+<p>O efeito de uma habilidade é determinado pelo nível da habilidade multiplicado pelo poder correspondente.</p>
+<br>
+</div>
+</section>
+
+<section id="evolucao">
+<div class="container">
+<h3><strong style="color:black;">6. EVOLUÇÃO</strong></h3>
+<p>Para subir de nível, o personagem gasta 6 XP multiplicados pelo nível atual mais 1. Ao evoluir, recebe 1 ponto de atributo e pode criar ou aprimorar uma habilidade.</p>
+<br>
+</div>
+</section>
+
+<section id="narrador">
+<div class="container">
+<h3><strong style="color:black;">7. NARRADOR</strong></h3>
+<p>O narrador apresenta o cenário, conduz a aventura e interpreta os NPCs. Os jogadores descrevem as ações de seus personagens. A história se desenvolve a partir das decisões e reações.</p>
+<br>
+</div>
+</section>
+
+<section id="movimento-turno">
+<div class="container">
+<h3><strong style="color:black;">8. MOVIMENTO E TURNO</strong></h3>
+<p>Em seu turno, o personagem pode mover-se até 6 metros por nível, usar uma habilidade e realizar uma ação livre, como conversar ou interagir com objetos.</p>
+<br>
+</div>
+</section>
+
+<section id="principio">
+<div class="container">
+<h3><strong style="color:black;">9. PRINCÍPIO DO SISTEMA</strong></h3>
+<p>O Ação V Reação não depende de um universo específico. Suas regras formam uma base para interpretar personagens e resolver situações em qualquer cenário. O universo, os personagens, os inimigos e a história podem mudar sem alterar a essência do sistema.</p>
+<br>
+</div>
+</section>
+
+<section id="rolagem">
+<div class="container">
+<h3><strong style="color:black;">10. FERRAMENTAS:</strong></h3><br>
+<div class="vendas">
+<a href="https://rpgavrad.github.io/"><img src="images/ad.png" alt="" /></a>
+<br><br>
+
+<!-- Estrutura do Contador de XP -->
+<div class="xp-counter-container">
+  <button class="xp-btn" onclick="alterarXP(-1)">-</button>
+  <span class="xp-display">XP: <span id="xp-valor">0</span></span>
+  <button class="xp-btn" onclick="alterarXP(1)">+</button>
+</div>
+
+<!-- Estilização CSS -->
+<style>
+  .xp-counter-container {
+    display: inline-flex;
+    align-items: center;
+    gap: 12px;
+    background-color: #1a1a1a;
+    padding: 8px 16px;
+    border-radius: 8px;
+    border: 1px solid #333;
+    user-select: none;
+  }
+
+  .xp-display {
+    color: #FFD700; /* Dourado combinando com o tema */
+    font-size: 1.2rem;
+    font-weight: bold;
+    min-width: 90px;
+    text-align: center;
+  }
+
+  .xp-btn {
+    background-color: #333;
+    color: #ffffff;
+    border: 1px solid #555;
+    border-radius: 4px;
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.2s, transform 0.1s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .xp-btn:hover {
+    background-color: #555;
+  }
+
+  .xp-btn:active {
+    transform: scale(0.95);
+  }
+</style>
+
+<!-- Lógica JavaScript -->
+<script>
+  let xpAtual = 0;
+
+  function alterarXP(valor) {
+    xpAtual += valor;
+    
+    // Trava para não ficar menor que zero
+    if (xpAtual < 0) {
+      xpAtual = 0;
+    }
+    
+    document.getElementById('xp-valor').innerText = xpAtual;
+  }
+</script>
+</div>
+<br><br>
+<div class="dado-container">
+  <div class="dado" id="dado">
+    <div class="pips" id="dado-pips" data-value="1">
+      <span class="pip p1"></span>
+      <span class="pip p2"></span>
+      <span class="pip p3"></span>
+      <span class="pip p4"></span>
+      <span class="pip p5"></span>
+      <span class="pip p6"></span>
+      <span class="pip p7"></span>
+      <span class="pip p8"></span>
+      <span class="pip p9"></span>
+    </div>
+  </div>
+  <div class="dado-lado">
+    <button class="btn btn-ouro" onclick="rolarDado()">Rolar D6</button>
+    <div class="dado-resultado" id="dado-resultado">Resultado: -</div>
+  </div>
+</div>
+
+<style>
+  .dado-container{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap: 20px;
+    flex-wrap: wrap;
+    margin-top: 10px;
+  }
+  .dado{
+    width: 80px;
+    height: 80px;
+    background: #1a1a1a;
+    border: 2px solid #FFD700;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.6);
+    transition: transform .5s ease;
+  }
+  .dado.rolando{
+    animation: dado-girar .5s linear;
+  }
+  @keyframes dado-girar{
+    0%   { transform: rotate(0deg) scale(1); }
+    50%  { transform: rotate(180deg) scale(0.9); }
+    100% { transform: rotate(360deg) scale(1); }
+  }
+  .pips{
+    display:grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    width:100%;
+    height:100%;
+    padding: 12px;
+  }
+  .pip{
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #FFD700;
+    opacity: 0;
+    justify-self:center;
+    align-self:center;
+  }
+  .p1{ grid-column:1; grid-row:1; }
+  .p2{ grid-column:2; grid-row:1; }
+  .p3{ grid-column:3; grid-row:1; }
+  .p4{ grid-column:1; grid-row:2; }
+  .p5{ grid-column:2; grid-row:2; }
+  .p6{ grid-column:3; grid-row:2; }
+  .p7{ grid-column:1; grid-row:3; }
+  .p8{ grid-column:2; grid-row:3; }
+  .p9{ grid-column:3; grid-row:3; }
+
+  .pips[data-value="1"] .p5{ opacity:1; }
+  .pips[data-value="2"] .p1,
+  .pips[data-value="2"] .p9{ opacity:1; }
+  .pips[data-value="3"] .p1,
+  .pips[data-value="3"] .p5,
+  .pips[data-value="3"] .p9{ opacity:1; }
+  .pips[data-value="4"] .p1,
+  .pips[data-value="4"] .p3,
+  .pips[data-value="4"] .p7,
+  .pips[data-value="4"] .p9{ opacity:1; }
+  .pips[data-value="5"] .p1,
+  .pips[data-value="5"] .p3,
+  .pips[data-value="5"] .p5,
+  .pips[data-value="5"] .p7,
+  .pips[data-value="5"] .p9{ opacity:1; }
+  .pips[data-value="6"] .p1,
+  .pips[data-value="6"] .p3,
+  .pips[data-value="6"] .p4,
+  .pips[data-value="6"] .p6,
+  .pips[data-value="6"] .p7,
+  .pips[data-value="6"] .p9{ opacity:1; }
+
+  .dado-resultado{
+    color:#FFD700;
+    font-weight:bold;
+    margin-top: 10px;
+    text-align:center;
+  }
+</style>
+
+<script>
+  let rolando = false;
+
+  function rolarDado() {
+    if (rolando) return;
+    rolando = true;
+
+    const dado = document.getElementById('dado');
+    const pips = document.getElementById('dado-pips');
+    const resultado = document.getElementById('dado-resultado');
+
+    dado.classList.add('rolando');
+    resultado.textContent = 'Rolando...';
+
+    setTimeout(() => {
+      const valor = Math.floor(Math.random() * 6) + 1;
+      pips.setAttribute('data-value', valor);
+      resultado.textContent = 'Resultado: ' + valor;
+      dado.classList.remove('rolando');
+      rolando = false;
+    }, 500);
+  }
+</script>
+</section>
+
+<br>
+<div vw class="enabled">
+<div vw-access-button class="active"></div>
+<div vw-plugin-wrapper>
+<div class="vw-plugin-top-wrapper"></div>
+</div>
+</div>
+
+<div class="vendas">
+<br><br><strong> 2015 ® Editora Gularte<br> Todos os direitos reservados</strong>
+  <br>
+</div>
+</div>
+</div>
+</div>
+
+<!-- Scripts -->
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script> new window.VLibras.Widget('https://vlibras.gov.br/app'); </script>
+<script src="assets/js/jquery.min.js"></script>
+<script src="assets/js/jquery.scrollex.min.js"></script>
+<script src="assets/js/jquery.scrolly.min.js"></script>
+<script src="assets/js/browser.min.js"></script>
+<script src="assets/js/breakpoints.min.js"></script>
+<script src="assets/js/util.js"></script>
+<script src="assets/js/main.js"></script>
+</body>
+</html>
