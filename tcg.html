@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <title>RPGAVR - Deck de NPCs</title>
-<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
 <style>
   :root{
     --ouro: #FFD700;
@@ -132,14 +132,24 @@
 
   /* ---- Cartas selecionadas ---- */
   .mesa{
-    display:grid;
-    grid-template-columns: repeat(5, minmax(90px, 1fr));
-    gap: 14px;
-    max-width: 700px;
+    display:flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    max-width: 900px;
     margin: 0 auto;
   }
-  @media (max-width: 620px){
-    .mesa{ grid-template-columns: repeat(2, 1fr); }
+  .mesa .slot,
+  .mesa .carta{
+    width: 140px;
+    flex: 0 0 140px;
+  }
+  @media (max-width: 420px){
+    .mesa .slot,
+    .mesa .carta{
+      width: 130px;
+      flex: 0 0 130px;
+    }
   }
 
   .slot{
@@ -157,8 +167,8 @@
 
   .carta{
     position: relative;
+    aspect-ratio: 2 / 3;
     width:100%;
-    height:100%;
     border-radius: 10px;
     background: var(--painel);
     border: 2px solid var(--ouro);
@@ -413,12 +423,7 @@ function render() {
       div.onclick = () => descartarCarta(i);
       div.innerHTML = `
         <img src="${carta.imagem}" alt="Carta ${carta.id}" onerror="this.style.display='none'">
-        <div class="rotulo">
-          <div class="numero-carta">${carta.id}</div>
-          ${carta.nome ? `<div class="nome-carta">${carta.nome}</div>` : ''}
-          ${carta.detalhe ? `<div class="dica">${carta.detalhe}</div>` : ''}
-          <div class="dica">clique para descartar</div>
-        </div>
+        ${carta.nome ? `<div class="rotulo"><div class="nome-carta">${carta.nome}</div>${carta.detalhe ? `<div class="dica">${carta.detalhe}</div>` : ''}</div>` : ''}
       `;
       mesaEl.appendChild(div);
     } else {
@@ -438,7 +443,7 @@ function render() {
     descarte.slice().reverse().forEach(c => {
       const div = document.createElement('div');
       div.className = 'carta-mini';
-      div.innerHTML = `<img src="${c.imagem}" alt="Carta ${c.id}" onerror="this.style.display='none'"><div class="numero-carta">${c.id}</div>`;
+      div.innerHTML = `<img src="${c.imagem}" alt="Carta ${c.id}" onerror="this.style.display='none'">`;
       descarteEl.appendChild(div);
     });
   }
