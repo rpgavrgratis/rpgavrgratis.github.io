@@ -397,45 +397,62 @@
         document.getElementById('xp-valor').innerText = xpAtual;
       }
     </script>
-
+<section>
     <br><br>
-    <div class="containerdice">
-      <div class="cube" id="cube">
-        <div class="front">
-          <span class="fas fa-circle"></span>
-        </div>
-        <div class="back">
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-        </div>
-        <div class="top">
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-        </div>
-        <div class="left">
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-        </div>
-        <div class="right">
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-        </div>
-        <div class="bottom">
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-          <span class="fas fa-circle"></span>
-        </div>
-      </div>
-    </div>
+<div class="containerdice">
+<div class="cube" id="cube">
+<div class="front">
+<span class="fas fa-circle"></span>
+</div>
+<div class="back">
+  <span class="fas fa-circle"></span>
+  <span class="fas fa-circle"></span>
+  <span class="fas fa-circle"></span>
+  <span class="fas fa-circle"></span>
+  <span class="fas fa-circle"></span>
+  <span class="fas fa-circle"></span>
+</div>
+<div class="top">
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+</div>
+<div class="left">
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+</div>
+<div class="right">
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+</div>
+<div class="bottom">
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+<span class="fas fa-circle"></span>
+</div>
+</div>
+</div>
+</div>
+<!-- JS CODE -->
+<script type="text/javascript">
+let cube = document.getElementById('cube');
+angleArray = [[0,0,0],[-310,-362,-38],[-400,-320,-2], [135,-217,-88],[-224,-317,5],[-47,-219,-81],[-133,-360,-53]];
+
+cube.addEventListener('click', function(e){
+    cube.style.animation = 'animate 1.4s linear';
+    const randomAngle = Math.floor(Math.random() * 6) + 1;
+    cube.style.transform = 'rotateX('+angleArray[randomAngle][0]+'deg) rotateY('+angleArray[randomAngle][1]+'deg) rotateZ('+angleArray[randomAngle][2]+'deg)';
+    cube.style.transition = '1s linear';
+    cube.addEventListener('animationend', function(e){
+        cube.style.animation = '';
+    });
+});
+</script>
+</section>
 
     <!-- JS CODE -->
     <script type="text/javascript">
