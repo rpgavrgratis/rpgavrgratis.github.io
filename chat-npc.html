@@ -1,0 +1,678 @@
+<!DOCTYPE HTML>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<title>RPGAVR - Chat com NPCs</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+<style>
+  :root{
+    --ouro: #FFD700;
+    --fundo: #0d0d0d;
+    --painel: #1a1a1a;
+    --painel2: #222;
+    --borda: #333;
+  }
+  *{ box-sizing:border-box; }
+  body{
+    margin:0;
+    background: var(--fundo);
+    color:#eee;
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 20px 12px 60px;
+  }
+  h1{
+    text-align:center;
+    color: var(--ouro);
+    text-shadow: 0 0 8px rgba(255,215,0,0.35);
+    margin-bottom: 4px;
+  }
+  .subtitulo{
+    text-align:center;
+    color:#aaa;
+    margin-top:0;
+    margin-bottom: 26px;
+    font-size: 0.9rem;
+  }
+  .aviso-topo{
+    max-width: 700px;
+    margin: 0 auto 24px;
+    background: var(--painel);
+    border: 1px solid var(--borda);
+    border-left: 4px solid var(--ouro);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    color: #bbb;
+  }
+
+  .layout{
+    max-width: 900px;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  /* ---- Seletor de personagens ---- */
+  .secao h2{
+    color: var(--ouro);
+    border-bottom: 1px solid var(--borda);
+    padding-bottom: 6px;
+    font-size: 1.05rem;
+  }
+  .personas{
+    display:flex;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+  .persona-card{
+    width: 150px;
+    background: var(--painel);
+    border: 2px solid var(--borda);
+    border-radius: 8px;
+    padding: 10px;
+    cursor: pointer;
+    transition: border-color .15s, transform .1s;
+  }
+  .persona-card:hover{ transform: translateY(-2px); }
+  .persona-card.ativo{
+    border-color: var(--ouro);
+    box-shadow: 0 0 10px rgba(255,215,0,0.35);
+  }
+  .persona-card .icone{
+    font-size: 1.6rem;
+    text-align:center;
+    margin-bottom: 4px;
+  }
+  .persona-card .nome{
+    color: var(--ouro);
+    font-weight: bold;
+    font-size: 0.85rem;
+    text-align:center;
+  }
+  .persona-card .tag{
+    color: #999;
+    font-size: 0.68rem;
+    text-align:center;
+    margin-top: 3px;
+  }
+  .persona-card .remover{
+    display:block;
+    margin: 6px auto 0;
+    background:none;
+    border: none;
+    color:#a55;
+    font-size: 0.68rem;
+    cursor:pointer;
+    text-decoration: underline;
+  }
+
+  .persona-nova{
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    color:#777;
+    font-size: 1.6rem;
+    border: 2px dashed #444;
+  }
+  .persona-nova:hover{ color: var(--ouro); border-color: var(--ouro); }
+
+  /* ---- Form nova personalidade ---- */
+  .form-persona{
+    display:none;
+    background: var(--painel);
+    border: 1px solid var(--borda);
+    border-radius: 8px;
+    padding: 16px;
+    margin-top: 12px;
+    gap: 10px;
+    flex-direction: column;
+  }
+  .form-persona.aberto{ display:flex; }
+  .form-persona label{
+    font-size: 0.8rem;
+    color: #ccc;
+  }
+  .form-persona input, .form-persona textarea{
+    width:100%;
+    background:#111;
+    border: 1px solid #444;
+    border-radius: 5px;
+    color:#eee;
+    padding: 8px;
+    font-family: inherit;
+    font-size: 0.85rem;
+  }
+  .form-persona textarea{ min-height: 70px; resize: vertical; }
+  .form-persona .linha-botoes{
+    display:flex;
+    gap: 10px;
+    justify-content:flex-end;
+  }
+
+  /* ---- Botões genéricos ---- */
+  .btn{
+    background-color:#333;
+    color:#fff;
+    border:1px solid #555;
+    border-radius:6px;
+    padding:9px 16px;
+    font-weight:bold;
+    cursor:pointer;
+    transition: background-color .2s, transform .1s;
+    font-size: 0.85rem;
+  }
+  .btn:hover{ background-color:#555; }
+  .btn:active{ transform: scale(0.96); }
+  .btn:disabled{ opacity:0.4; cursor:not-allowed; }
+  .btn-ouro{
+    background-color: var(--ouro);
+    color:#000;
+    border-color: var(--ouro);
+  }
+  .btn-ouro:hover{ background-color:#e6c200; }
+
+  /* ---- Chat ---- */
+  .chat-cabecalho{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .chat-cabecalho .info-npc{
+    color: var(--ouro);
+    font-weight:bold;
+  }
+  .chat-cabecalho .desc-npc{
+    color:#999;
+    font-size: 0.78rem;
+    display:block;
+    font-weight: normal;
+  }
+
+  .janela-chat{
+    background: var(--painel);
+    border: 1px solid var(--borda);
+    border-radius: 10px;
+    padding: 14px;
+    height: 380px;
+    overflow-y: auto;
+    display:flex;
+    flex-direction:column;
+    gap: 10px;
+  }
+
+  .msg{
+    max-width: 78%;
+    padding: 9px 12px;
+    border-radius: 10px;
+    font-size: 0.88rem;
+    line-height: 1.4;
+    white-space: pre-wrap;
+  }
+  .msg.user{
+    align-self: flex-end;
+    background: #2a4d2a;
+    color: #dfffe0;
+    border-bottom-right-radius: 2px;
+  }
+  .msg.npc{
+    align-self: flex-start;
+    background: var(--painel2);
+    border: 1px solid #444;
+    color: #f2e6c2;
+    border-bottom-left-radius: 2px;
+  }
+  .msg.npc .autor{
+    display:block;
+    color: var(--ouro);
+    font-size: 0.72rem;
+    font-weight:bold;
+    margin-bottom: 3px;
+  }
+  .msg.sistema{
+    align-self:center;
+    color:#888;
+    font-size: 0.75rem;
+    font-style: italic;
+  }
+  .msg.erro{
+    align-self:center;
+    color:#e07777;
+    font-size: 0.8rem;
+  }
+
+  .digitando{
+    align-self: flex-start;
+    color:#888;
+    font-size: 0.8rem;
+    font-style: italic;
+  }
+
+  .area-envio{
+    display:flex;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .area-envio input{
+    flex:1;
+    background: var(--painel);
+    border: 1px solid #444;
+    border-radius: 6px;
+    color:#eee;
+    padding: 10px 12px;
+    font-size: 0.9rem;
+  }
+  .area-envio input:focus{ outline: 1px solid var(--ouro); }
+
+  .rodape-chat{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top: 8px;
+    font-size: 0.72rem;
+    color:#777;
+  }
+</style>
+</head>
+<body>
+
+<h1>Chat com NPCs</h1>
+<p class="subtitulo">RPG Ação V Reação — converse com personalidades do mundo de fantasia</p>
+
+<div class="aviso-topo">
+  Este chat usa uma IA gratuita de terceiros (Pollinations.AI) para interpretar os NPCs.
+  É um serviço comunitário, sem garantias de disponibilidade, e tem um limite de ~1 mensagem a cada 15 segundos.
+  As conversas ficam salvas apenas no seu navegador (não são enviadas a lugar nenhum além da própria IA).
+</div>
+
+<div class="layout">
+
+  <section class="secao">
+    <h2>Escolha um NPC</h2>
+    <div class="personas" id="lista-personas"></div>
+
+    <div style="margin-top:14px;">
+      <button class="btn" onclick="alternarFormNovaPersona()">+ Criar novo NPC</button>
+    </div>
+
+    <div class="form-persona" id="form-persona">
+      <label>Nome do NPC</label>
+      <input type="text" id="np-nome" placeholder="Ex: Bruxa do Pântano" maxlength="40">
+
+      <label>Ícone (um emoji, opcional)</label>
+      <input type="text" id="np-icone" placeholder="🧙" maxlength="2">
+
+      <label>Personalidade e como ele fala (isso vira as instruções da IA)</label>
+      <textarea id="np-descricao" placeholder="Ex: Uma bruxa enigmática que vive isolada no pântano, fala em enigmas e adora trocar segredos por favores. Desconfiada de estranhos, mas curiosa sobre forasteiros."></textarea>
+
+      <div class="linha-botoes">
+        <button class="btn" onclick="alternarFormNovaPersona()">Cancelar</button>
+        <button class="btn btn-ouro" onclick="salvarNovaPersona()">Salvar NPC</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="secao">
+    <div class="chat-cabecalho">
+      <div class="info-npc" id="chat-titulo">
+        Selecione um NPC acima
+        <span class="desc-npc" id="chat-desc"></span>
+      </div>
+      <button class="btn" onclick="limparConversaAtual()">Limpar conversa</button>
+    </div>
+
+    <div class="janela-chat" id="janela-chat"></div>
+
+    <div class="area-envio">
+      <input type="text" id="campo-mensagem" placeholder="Digite sua fala..." onkeydown="if(event.key==='Enter')enviarMensagem();">
+      <button class="btn btn-ouro" id="btn-enviar" onclick="enviarMensagem()">Enviar</button>
+    </div>
+    <div class="rodape-chat">
+      <span id="status-limite"></span>
+      <span id="contador-msgs"></span>
+    </div>
+  </section>
+
+</div>
+
+<script>
+/* ==========================================================
+   PERSONALIDADES PADRÃO
+   ========================================================== */
+const PERSONAS_PADRAO = [
+  {
+    id: "rei-esnobe",
+    nome: "Rei Esnobe",
+    icone: "👑",
+    tag: "Nobreza",
+    fixo: true,
+    descricao: "Um rei arrogante e vaidoso, extremamente orgulhoso de sua linhagem. Fala de forma pomposa, rebuscada e um tanto antiquada, olhando os plebeus com desdém, mas ainda assim mantendo as formalidades de um monarca. Usa tratamentos como 'plebeu' ou 'súdito'. Adora falar de si mesmo, de suas conquistas e de sua riqueza."
+  },
+  {
+    id: "ferreiro-orgulhoso",
+    nome: "Ferreiro Orgulhoso",
+    icone: "🔨",
+    tag: "Artesão",
+    fixo: true,
+    descricao: "Um ferreiro robusto e orgulhoso do próprio ofício, que forjou armas para heróis lendários. Fala de forma direta, grosseira mas simpática, cheio de gírias de oficina. Ama falar sobre metais, têmpera e a qualidade de seu trabalho, e despreza armas malfeitas ou baratas."
+  },
+  {
+    id: "taverneira-exaventureira",
+    nome: "Taverneira Ex-Aventureira",
+    icone: "🍺",
+    tag: "Taverna",
+    fixo: true,
+    descricao: "Dona de uma taverna que já foi uma aventureira renomada antes de se aposentar. Fala de forma calorosa e brincalhona, sempre pronta para contar uma história antiga de suas viagens, mas também sabe ser dura quando necessário. Trata os clientes como se fossem velhos amigos."
+  },
+  {
+    id: "aventureiro-excampones",
+    nome: "Aventureiro Ex-Camponês",
+    icone: "🌾",
+    tag: "Aventureiro",
+    fixo: true,
+    descricao: "Um aventureiro simples que cresceu trabalhando na terra antes de pegar em armas. Fala de forma humilde, direta e prática, usando comparações do campo e da vida rural. Valoriza esforço, trabalho duro e desconfia de riqueza fácil ou nobres."
+  },
+  {
+    id: "mercador-ganancioso",
+    nome: "Mercador Ganancioso",
+    icone: "💰",
+    tag: "Comércio",
+    fixo: true,
+    descricao: "Um mercador ambulante obcecado por lucro, sempre tentando fechar o melhor negócio possível. Fala de forma rápida, insistente e bajuladora, elogiando o cliente enquanto tenta empurrar produtos e negociar preços a seu favor."
+  },
+  {
+    id: "guarda-cansado",
+    nome: "Guarda Cansado",
+    icone: "🛡️",
+    tag: "Vila",
+    fixo: true,
+    descricao: "Um guarda da vila que está cansado do trabalho e sonha com a aposentadoria. Fala de forma monótona e sarcástica, reclamando do serviço, do salário e dos moradores, mas no fundo é competente e leva o dever a sério quando algo realmente importante acontece."
+  }
+];
+
+/* ==========================================================
+   ESTADO / PERSISTÊNCIA (localStorage)
+   ========================================================== */
+const CHAVE_PERSONAS_CUSTOM = "rpgavr_npc_personas_custom";
+const CHAVE_HISTORICOS = "rpgavr_npc_historicos";
+const CHAVE_PERSONA_ATIVA = "rpgavr_npc_persona_ativa";
+
+let personasCustom = JSON.parse(localStorage.getItem(CHAVE_PERSONAS_CUSTOM) || "[]");
+let historicos = JSON.parse(localStorage.getItem(CHAVE_HISTORICOS) || "{}");
+let personaAtivaId = localStorage.getItem(CHAVE_PERSONA_ATIVA) || PERSONAS_PADRAO[0].id;
+
+function todasPersonas(){
+  return [...PERSONAS_PADRAO, ...personasCustom];
+}
+
+function salvarPersonasCustom(){
+  localStorage.setItem(CHAVE_PERSONAS_CUSTOM, JSON.stringify(personasCustom));
+}
+function salvarHistoricos(){
+  localStorage.setItem(CHAVE_HISTORICOS, JSON.stringify(historicos));
+}
+function salvarPersonaAtiva(){
+  localStorage.setItem(CHAVE_PERSONA_ATIVA, personaAtivaId);
+}
+
+function getPersona(id){
+  return todasPersonas().find(p => p.id === id);
+}
+
+function getHistorico(id){
+  if (!historicos[id]) historicos[id] = [];
+  return historicos[id];
+}
+
+/* ==========================================================
+   RENDER: lista de personas
+   ========================================================== */
+function renderPersonas(){
+  const container = document.getElementById('lista-personas');
+  container.innerHTML = "";
+
+  todasPersonas().forEach(p => {
+    const card = document.createElement('div');
+    card.className = 'persona-card' + (p.id === personaAtivaId ? ' ativo' : '');
+    card.onclick = () => selecionarPersona(p.id);
+    card.innerHTML = `
+      <div class="icone">${p.icone || '🎭'}</div>
+      <div class="nome">${p.nome}</div>
+      <div class="tag">${p.tag || (p.fixo ? '' : 'Personalizado')}</div>
+      ${!p.fixo ? `<button class="remover" onclick="event.stopPropagation(); removerPersona('${p.id}')">remover</button>` : ''}
+    `;
+    container.appendChild(card);
+  });
+
+  renderCabecalhoChat();
+}
+
+function selecionarPersona(id){
+  personaAtivaId = id;
+  salvarPersonaAtiva();
+  renderPersonas();
+  renderJanelaChat();
+}
+
+function removerPersona(id){
+  if (!confirm("Remover este NPC e apagar a conversa com ele?")) return;
+  personasCustom = personasCustom.filter(p => p.id !== id);
+  delete historicos[id];
+  salvarPersonasCustom();
+  salvarHistoricos();
+  if (personaAtivaId === id) {
+    personaAtivaId = PERSONAS_PADRAO[0].id;
+    salvarPersonaAtiva();
+  }
+  renderPersonas();
+  renderJanelaChat();
+}
+
+/* ==========================================================
+   FORM NOVA PERSONA
+   ========================================================== */
+function alternarFormNovaPersona(){
+  document.getElementById('form-persona').classList.toggle('aberto');
+}
+
+function salvarNovaPersona(){
+  const nome = document.getElementById('np-nome').value.trim();
+  const icone = document.getElementById('np-icone').value.trim();
+  const descricao = document.getElementById('np-descricao').value.trim();
+
+  if (!nome || !descricao) {
+    alert("Preencha ao menos o nome e a personalidade do NPC.");
+    return;
+  }
+
+  const id = "custom-" + Date.now();
+  personasCustom.push({ id, nome, icone, tag: "Personalizado", fixo: false, descricao });
+  salvarPersonasCustom();
+
+  document.getElementById('np-nome').value = "";
+  document.getElementById('np-icone').value = "";
+  document.getElementById('np-descricao').value = "";
+  alternarFormNovaPersona();
+
+  selecionarPersona(id);
+}
+
+/* ==========================================================
+   CHAT
+   ========================================================== */
+function renderCabecalhoChat(){
+  const p = getPersona(personaAtivaId);
+  const titulo = document.getElementById('chat-titulo');
+  if (!p) {
+    titulo.innerHTML = "Selecione um NPC acima";
+    return;
+  }
+  titulo.innerHTML = `${p.icone || '🎭'} ${p.nome} <span class="desc-npc">${p.descricao}</span>`;
+}
+
+function renderJanelaChat(){
+  const janela = document.getElementById('janela-chat');
+  janela.innerHTML = "";
+  const hist = getHistorico(personaAtivaId);
+
+  if (hist.length === 0) {
+    const div = document.createElement('div');
+    div.className = 'msg sistema';
+    div.textContent = "Nenhuma mensagem ainda. Diga algo para começar a conversa.";
+    janela.appendChild(div);
+  }
+
+  hist.forEach(m => {
+    const div = document.createElement('div');
+    if (m.role === 'user') {
+      div.className = 'msg user';
+      div.textContent = m.content;
+    } else {
+      div.className = 'msg npc';
+      const p = getPersona(personaAtivaId);
+      div.innerHTML = `<span class="autor">${p ? p.nome : 'NPC'}</span>`;
+      div.appendChild(document.createTextNode(m.content));
+    }
+    janela.appendChild(div);
+  });
+
+  janela.scrollTop = janela.scrollHeight;
+  document.getElementById('contador-msgs').textContent = hist.length + " mensagens";
+}
+
+function limparConversaAtual(){
+  if (!confirm("Apagar toda a conversa com este NPC?")) return;
+  historicos[personaAtivaId] = [];
+  salvarHistoricos();
+  renderJanelaChat();
+}
+
+/* ---- Envio de mensagens / chamada à API ---- */
+let emCooldown = false;
+const COOLDOWN_MS = 16000; // levemente acima do limite anônimo de 15s
+
+async function enviarMensagem(){
+  const campo = document.getElementById('campo-mensagem');
+  const texto = campo.value.trim();
+  if (!texto) return;
+
+  const p = getPersona(personaAtivaId);
+  if (!p) { alert("Selecione um NPC primeiro."); return; }
+  if (emCooldown) return;
+
+  const hist = getHistorico(personaAtivaId);
+  hist.push({ role: 'user', content: texto });
+  salvarHistoricos();
+  campo.value = "";
+  renderJanelaChat();
+
+  mostrarDigitando(true);
+  travarEnvio();
+
+  try {
+    const resposta = await chamarIA(p, hist);
+    hist.push({ role: 'assistant', content: resposta });
+    salvarHistoricos();
+  } catch (e) {
+    const janela = document.getElementById('janela-chat');
+    const div = document.createElement('div');
+    div.className = 'msg erro';
+    div.textContent = "O NPC não conseguiu responder agora (" + e.message + "). Tente novamente em instantes.";
+    janela.appendChild(div);
+  }
+
+  mostrarDigitando(false);
+  renderJanelaChat();
+}
+
+function mostrarDigitando(mostrar){
+  const existente = document.getElementById('indicador-digitando');
+  if (mostrar) {
+    if (existente) return;
+    const janela = document.getElementById('janela-chat');
+    const div = document.createElement('div');
+    div.id = 'indicador-digitando';
+    div.className = 'digitando';
+    div.textContent = (getPersona(personaAtivaId)?.nome || 'NPC') + " está digitando...";
+    janela.appendChild(div);
+    janela.scrollTop = janela.scrollHeight;
+  } else {
+    if (existente) existente.remove();
+  }
+}
+
+function travarEnvio(){
+  emCooldown = true;
+  const btn = document.getElementById('btn-enviar');
+  const status = document.getElementById('status-limite');
+  btn.disabled = true;
+
+  let restante = Math.ceil(COOLDOWN_MS / 1000);
+  status.textContent = `Aguarde ${restante}s (limite da IA gratuita)...`;
+  const intervalo = setInterval(() => {
+    restante--;
+    if (restante <= 0) {
+      clearInterval(intervalo);
+      status.textContent = "";
+      btn.disabled = false;
+      emCooldown = false;
+    } else {
+      status.textContent = `Aguarde ${restante}s (limite da IA gratuita)...`;
+    }
+  }, 1000);
+}
+
+async function chamarIA(persona, historico){
+  const systemPrompt = `
+Você está interpretando um NPC (personagem não jogável) dentro de um RPG de mesa de fantasia medieval, no sistema "RPG Ação V Reação".
+Nome do personagem: ${persona.nome}.
+Personalidade e forma de falar: ${persona.descricao}
+
+Regras obrigatórias:
+- Responda SEMPRE em português do Brasil.
+- Responda SEMPRE em primeira pessoa, permanecendo no personagem, sem nunca mencionar que é uma IA, um modelo de linguagem ou um chat.
+- Respostas curtas e naturais para um diálogo de RPG: normalmente entre 1 e 4 frases, a menos que o jogador peça claramente por mais detalhes.
+- Reaja ao que o jogador diz como esse personagem reagiria, mantendo consistência com sua personalidade.
+- Não descreva ações do jogador, apenas as suas próprias falas e, quando fizer sentido, pequenas ações do próprio NPC entre asteriscos (ex: *cruza os braços*).
+`.trim();
+
+  const mensagensParaAPI = [
+    { role: "system", content: systemPrompt },
+    ...historico.slice(-16).map(m => ({ role: m.role, content: m.content }))
+  ];
+
+  const resp = await fetch("https://text.pollinations.ai/openai", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({
+      model: "openai",
+      messages: mensagensParaAPI,
+      temperature: 0.9,
+      max_tokens: 220
+    })
+  });
+
+  if (!resp.ok) {
+    throw new Error("erro " + resp.status);
+  }
+
+  const dados = await resp.json();
+  const conteudo = dados?.choices?.[0]?.message?.content;
+  if (!conteudo) throw new Error("resposta vazia");
+  return conteudo.trim();
+}
+
+/* ==========================================================
+   INICIALIZAÇÃO
+   ========================================================== */
+if (!getPersona(personaAtivaId)) {
+  personaAtivaId = PERSONAS_PADRAO[0].id;
+}
+renderPersonas();
+renderJanelaChat();
+</script>
+
+</body>
+</html>
